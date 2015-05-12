@@ -22,12 +22,17 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
 //        self.navigationController?.navigationBarHidden = true
 
+        let heightOfToolBar = self.navigationController?.toolbar.frame.height
         
-        let imageForSmallCameraButton = RBSquareImageTo(cameraButtonOutlet.imageView!.image!, CGSize(width: 20, height: 20))
+        let imageForSmallCameraButton = RBResizeImage(cameraButtonOutlet.imageView!.image!, CGSize(width: heightOfToolBar!, height: heightOfToolBar!))
         
-        
-//        let cameraButton = UIBarButtonItem(image:imageForSmallCameraButton , style: UIBarButtonItemStyle.Plain, target: self, action: "showCameraPicker")
-       let cameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "showCameraPicker")
+
+    
+        let cameraButton = UIBarButtonItem(image:
+            imageForSmallCameraButton!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+            , style: UIBarButtonItemStyle.Plain, target: self, action: "showCameraPicker")
+        cameraButton
+//       let cameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "showCameraPicker")
         
 
 
