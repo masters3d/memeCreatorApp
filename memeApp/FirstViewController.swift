@@ -12,33 +12,20 @@ class FirstViewController: UIViewController {
 
     @IBOutlet var cameraButtonOutlet: UIButton!
     
-
     func showCameraPicker(){
         println("need camera picker")
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationController?.navigationBarHidden = true
-
-        let heightOfToolBar = self.navigationController?.toolbar.frame.height
-        
-        let imageForSmallCameraButton = RBResizeImage(cameraButtonOutlet.imageView!.image!, CGSize(width: heightOfToolBar!, height: heightOfToolBar!))
-        
-
-    
-        let cameraButton = UIBarButtonItem(image:
-            imageForSmallCameraButton!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-            , style: UIBarButtonItemStyle.Plain, target: self, action: "showCameraPicker")
-        cameraButton
-//       let cameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "showCameraPicker")
-        
+        self.navigationController?.navigationBarHidden = true
 
 
-        //self.navigationItem.leftBarButtonItem = cameraButton
+       let cameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "showCameraPicker")
+
+        self.navigationItem.leftBarButtonItem = cameraButton
         
-        self.setToolbarItems([cameraButton], animated: false)
+        self.setToolbarItems([cameraButton], animated: true)
                 // Do any additional setup after loading the view.
     }
 
@@ -47,6 +34,10 @@ class FirstViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(animated: Bool) {
+    self.navigationController?.navigationBarHidden = false
+
+    }
 
     /*
     // MARK: - Navigation
