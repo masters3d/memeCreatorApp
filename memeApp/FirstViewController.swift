@@ -7,46 +7,107 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class FirstViewController: UIViewController {
 
-    @IBOutlet var cameraButtonOutlet: UIButton!
+class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UIAlertViewDelegate, UINavigationControllerDelegate {
     
-    func showCameraPicker(){
-        println("need camera picker")
+    @IBAction func cameraButton(sender: AnyObject) {
+        showCameraPicker()
     }
-
+    
+    @IBOutlet var imageView: UIImageView!
+    
+    var cameraUI = UIImagePickerController()
+    
+    var capturedImages = [UIImage]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBarHidden = true
 
-
-       let cameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "showCameraPicker")
-
-        self.navigationItem.leftBarButtonItem = cameraButton
+// This is they way to add cameraButton with just code
+//        let cameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "showCameraPicker")
+//        
+//        self.navigationItem.leftBarButtonItem = cameraButton
+//        
+//        self.setToolbarItems([cameraButton], animated: true)
         
-        self.setToolbarItems([cameraButton], animated: true)
-                // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillDisappear(animated: Bool) {
-    self.navigationController?.navigationBarHidden = false
-
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = true
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = false
+    }
+    
+    
+    func showCameraPicker(){
+        self.presentCamera()
+    }
+    
+    //MARK: - Image Saving
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]){
+    
 
+        
+        var image = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        
+        println(image)
+        
+        self.capturedImages += [image]
+        
+        self.imageView.image = capturedImages.last
+        
+        self.capturedImages.removeAll(keepCapacity: false)
+        
+        imagePickerControllerDidCancel(self.cameraUI)
+
+        
+    }
+    
+    
+    
+    //MARK: - Camera
+    
+    func presentCamera(){
+        cameraUI.delegate = self
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            cameraUI.sourceType = UIImagePickerControllerSourceType.Camera
+        } else {
+            cameraUI.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        }
+        // cameraUI.mediaTypes = [kUTTypeImage] // This is the default
+        cameraUI.allowsEditing = true
+        
+        self.presentViewController(cameraUI, animated: true, completion: nil)
+    }
+    
+    //MARK: - Cancell
+    
+    func imagePickerControllerDidCancel(picker:UIImagePickerController){
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
