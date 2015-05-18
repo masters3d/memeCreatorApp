@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Ca-gR-ZKx">
+                                <rect key="frame" x="0.0" y="64" width="607" height="492"/>
+                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHF-gE-3Kh">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
@@ -29,15 +32,12 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="LLg-pw-iaQ"/>
                                     <barButtonItem title="Album" id="oj0-f6-EPe">
                                         <connections>
-                                            <segue destination="pGg-6v-bdr" kind="show" id="QgD-ea-uoK"/>
+                                            <segue destination="pGg-6v-bdr" kind="show" identifier="imageToTable" id="QgD-ea-uoK"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="aQZ-XH-IOj"/>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Ca-gR-ZKx">
-                                <rect key="frame" x="0.0" y="64" width="607" height="492"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -57,7 +57,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Km-PW-dt7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="210" y="-649"/>
+            <point key="canvasLocation" x="242" y="-723"/>
         </scene>
         <!--Master-->
         <scene sceneID="cUi-kZ-frf">

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D34E1911B027D45002933D2 /* RBResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34E1901B027D45002933D2 /* RBResizer.swift */; };
+		9D34E1931B05068A002933D2 /* localStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34E1921B05068A002933D2 /* localStore.swift */; };
 		9D99F6231B024EF600D7F06A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99F6221B024EF600D7F06A /* AppDelegate.swift */; };
 		9D99F6251B024EF600D7F06A /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99F6241B024EF600D7F06A /* MasterViewController.swift */; };
 		9D99F6271B024EF600D7F06A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99F6261B024EF600D7F06A /* DetailViewController.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		9D34E1901B027D45002933D2 /* RBResizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBResizer.swift; sourceTree = "<group>"; };
+		9D34E1921B05068A002933D2 /* localStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = localStore.swift; sourceTree = "<group>"; };
 		9D99F61D1B024EF600D7F06A /* memeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = memeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D99F6211B024EF600D7F06A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D99F6221B024EF600D7F06A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				9D99F6221B024EF600D7F06A /* AppDelegate.swift */,
 				9D99F6241B024EF600D7F06A /* MasterViewController.swift */,
 				9D99F6261B024EF600D7F06A /* DetailViewController.swift */,
+				9D34E1921B05068A002933D2 /* localStore.swift */,
 				9D99F6441B02505B00D7F06A /* FirstViewController.swift */,
 				9D99F6281B024EF600D7F06A /* Main.storyboard */,
 				9D99F62B1B024EF600D7F06A /* Images.xcassets */,
@@ -224,6 +227,7 @@
 				9D99F6271B024EF600D7F06A /* DetailViewController.swift in Sources */,
 				9D99F6251B024EF600D7F06A /* MasterViewController.swift in Sources */,
 				9D99F6451B02505B00D7F06A /* FirstViewController.swift in Sources */,
+				9D34E1931B05068A002933D2 /* localStore.swift in Sources */,
 				9D99F6231B024EF600D7F06A /* AppDelegate.swift in Sources */,
 				9D34E1911B027D45002933D2 /* RBResizer.swift in Sources */,
 			);

@@ -18,25 +18,18 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     @IBOutlet var imageView: UIImageView!
     
-    var cameraUI = UIImagePickerController()
     
-    var capturedImages = [UIImage]()
+    var cameraUI = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-// This is they way to add cameraButton with just code
-//        let cameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "showCameraPicker")
-//        
-//        self.navigationItem.leftBarButtonItem = cameraButton
-//        
-//        self.setToolbarItems([cameraButton], animated: true)
         
         // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         // Dispose of any resources that can be recreated.
     }
     
@@ -48,7 +41,6 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
         self.navigationController?.navigationBarHidden = false
     }
     
-    
     func showCameraPicker(){
         self.presentCamera()
     }
@@ -57,23 +49,15 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]){
     
-
+        var image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        var image = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        self.imageView.image = image
+     
         
-        println(image)
-        
-        self.capturedImages += [image]
-        
-        self.imageView.image = capturedImages.last
-        
-        self.capturedImages.removeAll(keepCapacity: false)
+        println(saveImageToUserFolder(image))
         
         imagePickerControllerDidCancel(self.cameraUI)
-
-        
     }
-    
     
     
     //MARK: - Camera
@@ -85,19 +69,25 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
         } else {
             cameraUI.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         }
-        // cameraUI.mediaTypes = [kUTTypeImage] // This is the default
+        cameraUI.mediaTypes = [kUTTypeImage] // This is the default
         cameraUI.allowsEditing = true
         
         self.presentViewController(cameraUI, animated: true, completion: nil)
     }
     
-    //MARK: - Cancell
+    //MARK: - Cancel
     
     func imagePickerControllerDidCancel(picker:UIImagePickerController){
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "imageToTable" {
+            if let image = self.imageView.image {
+    (segue.destinationViewController as! MasterViewController).insertNewObject(self)
+            }
+        }
+    }
     
     
     /*
@@ -109,5 +99,8 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    
     
 }
