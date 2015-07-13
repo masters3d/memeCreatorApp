@@ -62,13 +62,33 @@ class MasterViewController: UITableViewController {
         return objects.count
     }
 
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+//
+//        let object = objects[indexPath.row] as! NSDate
+//        cell.textLabel!.text = object.description
+//        return cell
+//    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-
+        let cellCustom = tableView.dequeueReusableCellWithIdentifier("CellCustom", forIndexPath: indexPath) as! UITableViewCell
+        
         let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
-        return cell
+        
+        //labelTop, labelBottom, labelDate
+        //let labelTop = cellCustom.viewWithTag(0).tex
+        let labelTop = cellCustom.viewWithTag(1) as! UILabel
+        let labelBottom = cellCustom.viewWithTag(2) as! UILabel
+        let image = UIImage(named: "oz2m6slT")
+
+        
+        labelTop.text = "TopView Jose"
+        labelBottom.text = "BottomView Jose"
+        cellCustom.imageView?.image = image
+        
+        return cellCustom
     }
+    
 
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
