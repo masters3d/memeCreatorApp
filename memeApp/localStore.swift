@@ -10,8 +10,24 @@ import Foundation
 import UIKit
 import ImageIO
 
+struct MemePicText{
+    var topLabel:String
+    var bottomLabel:String
+    var date:NSDate
+    var image:UIImage
+    var imageURL:String
+    
+    init(topLabel:String, bottomLabel:String, image:UIImage, imageURL:String ){
+        self.topLabel = topLabel
+        self.bottomLabel = bottomLabel
+        self.date = NSDate()
+        self.image = image
+        self.imageURL = imageURL
+    }
+}
 
-func saveImageToUserFolder(image:UIImage) -> (fullURL:String, name:String )  {
+
+func saveImageToUserFolder(image:UIImage) -> (imageURL:String, name:String )  {
     
     let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     let currentDateTime = NSDate()
@@ -21,7 +37,7 @@ func saveImageToUserFolder(image:UIImage) -> (fullURL:String, name:String )  {
     let dataToSave = UIImageJPEGRepresentation(image, 0.70)
     
     let recordingName = formatter.stringFromDate(currentDateTime) + ".jpeg"
-    let pathArray = [dirPath, recordingName]
+    let pathArray = [dirPath, "memes", recordingName]
     let filePath = NSURL.fileURLWithPathComponents(pathArray)
     let filePathString = filePath?.path ?? "" //dirPath + "/" + recordingName
 

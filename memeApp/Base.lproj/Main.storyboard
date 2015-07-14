@@ -2,13 +2,12 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--First View Controller-->
         <scene sceneID="6Qt-SG-Yxt">
             <objects>
-                <viewController id="Kml-62-2J3" customClass="FirstViewController" customModule="memeApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstViewController" id="Kml-62-2J3" customClass="FirstViewController" customModule="memeApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Z8o-FT-hyM"/>
                         <viewControllerLayoutGuide type="bottom" id="btF-2G-SdU"/>
@@ -17,9 +16,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Ca-gR-ZKx">
-                                <rect key="frame" x="0.0" y="64" width="607" height="492"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktD-RT-6vJ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ca-gR-ZKx">
+                                        <rect key="frame" x="-4" y="0.0" width="607" height="492"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder=" TEXT" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5mM-ms-GIr">
+                                        <rect key="frame" x="248" y="57" width="130" height="61"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="61" id="lgA-MB-jk1"/>
+                                            <constraint firstAttribute="width" constant="130" id="qio-PB-ymK"/>
+                                        </constraints>
+                                        <attributedString key="attributedText"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="leading" secondItem="ktD-RT-6vJ" secondAttribute="leading" constant="248" id="5Wh-Ef-W6m"/>
+                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="top" secondItem="ktD-RT-6vJ" secondAttribute="top" constant="57" id="9RB-5k-ujS"/>
+                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="leading" secondItem="ktD-RT-6vJ" secondAttribute="leading" constant="248" id="Tvu-lc-P7m"/>
+                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="top" secondItem="ktD-RT-6vJ" secondAttribute="top" constant="57" id="ZtI-mR-nKU"/>
+                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="top" secondItem="ktD-RT-6vJ" secondAttribute="top" constant="57" id="cM6-Oz-RVD"/>
+                                </constraints>
+                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHF-gE-3Kh">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
@@ -42,10 +63,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="LHF-gE-3Kh" firstAttribute="leading" secondItem="t1r-1x-al6" secondAttribute="leading" id="9MV-Qg-ltc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="0Ca-gR-ZKx" secondAttribute="trailing" constant="-23" id="CpV-dD-zmX"/>
-                            <constraint firstItem="0Ca-gR-ZKx" firstAttribute="bottom" secondItem="LHF-gE-3Kh" secondAttribute="top" id="H68-3K-VMU"/>
-                            <constraint firstItem="0Ca-gR-ZKx" firstAttribute="top" secondItem="Z8o-FT-hyM" secondAttribute="bottom" id="dGe-cJ-Eu2"/>
-                            <constraint firstItem="0Ca-gR-ZKx" firstAttribute="leading" secondItem="LHF-gE-3Kh" secondAttribute="leading" id="gct-pl-ILd"/>
                             <constraint firstAttribute="trailing" secondItem="LHF-gE-3Kh" secondAttribute="trailing" id="icF-dQ-wL5"/>
                             <constraint firstItem="LHF-gE-3Kh" firstAttribute="bottom" secondItem="btF-2G-SdU" secondAttribute="top" id="jc7-N6-GAa"/>
                         </constraints>
@@ -62,7 +79,7 @@
         <!--Master-->
         <scene sceneID="cUi-kZ-frf">
             <objects>
-                <navigationController title="Master" id="rS3-R9-Ivy" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MasterNavigation" title="Master" id="rS3-R9-Ivy" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>

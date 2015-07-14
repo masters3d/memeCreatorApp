@@ -19,7 +19,7 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet var imageView: UIImageView!
     
     
-    var cameraUI = UIImagePickerController()
+     var cameraUI = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +62,7 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     //MARK: - Camera
     
-    func presentCamera(){
+     func presentCamera(){
         cameraUI.delegate = self
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             cameraUI.sourceType = UIImagePickerControllerSourceType.Camera
@@ -84,7 +84,9 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "imageToTable" {
             if let image = self.imageView.image {
-    (segue.destinationViewController as! MasterViewController).insertNewObject(self)
+                let newMeme = MemePicText(topLabel: "Heyhey", bottomLabel: "What Bottom", image: image, imageURL: "")
+                
+    (segue.destinationViewController as! MasterViewController).insertNewObject(newMeme)
             }
         }
     }
