@@ -18,11 +18,30 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     @IBOutlet var imageView: UIImageView!
     
+    @IBOutlet var topText: UITextField!
+    
+    @IBOutlet var bottomText: UITextField!
     
      var cameraUI = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// Checks to see if font exist
+        let temp = (UIFont.familyNames() as! [String]).filter({$0.hasPrefix("Impact")})
+        assert(temp == ["Impact"], "Impact font does not exist")
+        
+        // Sets custom font 
+        let impactTextAttributes = [
+            NSStrokeColorAttributeName : UIColor.blackColor(),
+            NSForegroundColorAttributeName : UIColor.whiteColor(),
+            NSFontAttributeName : UIFont(name: "Impact", size: 38)!,
+            NSStrokeWidthAttributeName : -2
+        ]
+         bottomText.defaultTextAttributes = impactTextAttributes
+         topText.defaultTextAttributes    = impactTextAttributes
+        
+        
         
         // Do any additional setup after loading the view.
     }

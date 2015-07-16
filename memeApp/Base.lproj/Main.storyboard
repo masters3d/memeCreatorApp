@@ -16,30 +16,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktD-RT-6vJ">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktD-RT-6vJ">
                                 <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ca-gR-ZKx">
                                         <rect key="frame" x="-4" y="0.0" width="607" height="492"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder=" TEXT" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5mM-ms-GIr">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="topText" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5mM-ms-GIr">
                                         <rect key="frame" x="248" y="57" width="130" height="61"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="61" id="lgA-MB-jk1"/>
-                                            <constraint firstAttribute="width" constant="130" id="qio-PB-ymK"/>
-                                        </constraints>
+                                        <attributedString key="attributedText"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="bottomText" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUq-Nw-Axh">
+                                        <rect key="frame" x="248" y="387" width="130" height="61"/>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="leading" secondItem="ktD-RT-6vJ" secondAttribute="leading" constant="248" id="5Wh-Ef-W6m"/>
-                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="top" secondItem="ktD-RT-6vJ" secondAttribute="top" constant="57" id="9RB-5k-ujS"/>
-                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="leading" secondItem="ktD-RT-6vJ" secondAttribute="leading" constant="248" id="Tvu-lc-P7m"/>
-                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="top" secondItem="ktD-RT-6vJ" secondAttribute="top" constant="57" id="ZtI-mR-nKU"/>
-                                    <constraint firstItem="5mM-ms-GIr" firstAttribute="top" secondItem="ktD-RT-6vJ" secondAttribute="top" constant="57" id="cM6-Oz-RVD"/>
-                                </constraints>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHF-gE-3Kh">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -69,7 +63,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="zlC-cx-KIq"/>
                     <connections>
+                        <outlet property="bottomText" destination="hUq-Nw-Axh" id="978-tP-3qS"/>
                         <outlet property="imageView" destination="0Ca-gR-ZKx" id="JiF-08-yUa"/>
+                        <outlet property="topText" destination="5mM-ms-GIr" id="R3y-Cu-2rd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Km-PW-dt7" userLabel="First Responder" sceneMemberID="firstResponder"/>

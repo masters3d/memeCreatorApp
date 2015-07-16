@@ -17,6 +17,7 @@
 		9D99F62F1B024EF600D7F06A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D99F62D1B024EF600D7F06A /* LaunchScreen.xib */; };
 		9D99F63B1B024EF600D7F06A /* memeAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99F63A1B024EF600D7F06A /* memeAppTests.swift */; };
 		9D99F6451B02505B00D7F06A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99F6441B02505B00D7F06A /* FirstViewController.swift */; };
+		9DACE9031B58603D0032CBA6 /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DACE9021B58603D0032CBA6 /* Impact.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		9D99F6391B024EF600D7F06A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D99F63A1B024EF600D7F06A /* memeAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memeAppTests.swift; sourceTree = "<group>"; };
 		9D99F6441B02505B00D7F06A /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		9DACE9021B58603D0032CBA6 /* Impact.ttf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Impact.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				9D99F6281B024EF600D7F06A /* Main.storyboard */,
 				9D99F62B1B024EF600D7F06A /* Images.xcassets */,
 				9D99F62D1B024EF600D7F06A /* LaunchScreen.xib */,
+				9DACE9021B58603D0032CBA6 /* Impact.ttf */,
 				9D34E1901B027D45002933D2 /* RBResizer.swift */,
 				9D99F6201B024EF600D7F06A /* Supporting Files */,
 			);
@@ -204,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DACE9031B58603D0032CBA6 /* Impact.ttf in Resources */,
 				9D99F62A1B024EF600D7F06A /* Main.storyboard in Resources */,
 				9D99F62F1B024EF600D7F06A /* LaunchScreen.xib in Resources */,
 				9D99F62C1B024EF600D7F06A /* Images.xcassets in Resources */,
