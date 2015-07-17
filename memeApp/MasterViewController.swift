@@ -89,16 +89,13 @@ class MasterViewController: UITableViewController {
         
         let object = objects[indexPath.row]
         
-        //labelTop, labelBottom, labelDate
-        //let labelTop = cellCustom.viewWithTag(0).tex
         let labelTop = cellCustom.viewWithTag(1) as! UILabel
         let labelBottom = cellCustom.viewWithTag(2) as! UILabel
-        //let image = UIImage(named: "oz2m6slT")
 
         
         labelTop.text = object.topLabel
         labelBottom.text = object.bottomLabel
-        cellCustom.imageView?.image = object.image
+        cellCustom.imageView?.image = object.editedImage ?? object.image
         
         return cellCustom
     }

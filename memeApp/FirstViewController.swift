@@ -45,22 +45,24 @@ UITextFieldDelegate{
         assert(contains((UIFont.familyNames() as! [String]), "Impact"), "Impact font does not exist")
         
         // Sets custom font
-        let impactTextAttributes = [
-            NSStrokeColorAttributeName : UIColor.blackColor(),
-            NSForegroundColorAttributeName : UIColor.whiteColor(),
-            NSFontAttributeName : UIFont(name: "Impact", size: 38)!,
-            NSStrokeWidthAttributeName : -2
-        ]
-        bottomText.defaultTextAttributes = impactTextAttributes
-        topText.defaultTextAttributes    = impactTextAttributes
-        bottomText.textAlignment = .Center
-        topText.textAlignment = .Center
+
         topText.text = "TOP"
         bottomText.text = "BOTTOM"
-        topText.delegate = self
-        bottomText.delegate = self
+
         
+        func setTextAttibutes(input:UITextField){
+            input.defaultTextAttributes = [
+                    NSStrokeColorAttributeName : UIColor.blackColor(),
+                    NSForegroundColorAttributeName : UIColor.whiteColor(),
+                    NSFontAttributeName : UIFont(name: "Impact", size: 38)!,
+                    NSStrokeWidthAttributeName : -2 ]
+            input.textAlignment  = .Center
+            input.delegate = self
+            input.placeholder = nil
+        }
         
+        setTextAttibutes(topText)
+        setTextAttibutes(bottomText)
         
         // Do any additional setup after loading the view.
     }
@@ -129,7 +131,8 @@ UITextFieldDelegate{
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "imageToTable" {
             if let image = self.imageView.image {
-                let newMeme = MemePicText(topLabel: "Heyhey", bottomLabel: "What Bottom", image: image, imageURL: "")
+                let newMeme = MemePicText(topLabel: topText.text, bottomLabel: bottomText.text, image: image, editedImage: viewComposite.jj_takeSnapshotOfCurrentFrame())
+
                 
                 (segue.destinationViewController as! MasterViewController).insertNewObject(newMeme)
             }
@@ -143,7 +146,7 @@ UITextFieldDelegate{
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        textField.text = " "
+        textField.text = ""
 
     }
     

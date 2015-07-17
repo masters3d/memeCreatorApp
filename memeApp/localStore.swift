@@ -16,13 +16,18 @@ struct MemePicText{
     var date:NSDate
     var image:UIImage
     var imageURL:String
+    var imageName:String
+    var editedImage:UIImage?
     
-    init(topLabel:String, bottomLabel:String, image:UIImage, imageURL:String ){
+    init(topLabel:String, bottomLabel:String, image:UIImage, editedImage:UIImage? ){
+        let nameAndUrl = saveImageToUserFolder(image)
         self.topLabel = topLabel
         self.bottomLabel = bottomLabel
         self.date = NSDate()
         self.image = image
-        self.imageURL = imageURL
+        self.imageURL  = nameAndUrl.imageURL
+        self.imageName  = nameAndUrl.name
+        self.editedImage = editedImage
     }
 }
 
