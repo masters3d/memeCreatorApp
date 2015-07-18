@@ -94,17 +94,27 @@ UITextFieldDelegate{
         self.imageView.image = image
         
         
-        println(saveImageToUserFolder(image))
+       // println(saveImageToUserFolder(image))
         
         imagePickerControllerDidCancel(self.cameraUI)
     }
     //MARK: - Sharing Feature
     
+    func imageToShare() -> Void{
+        
+        self.performSegueWithIdentifier("imageToTable", sender: self)
+    }
+    
     func shareImage(image:UIImage){
         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         
-        self.presentViewController(activityVC, animated: true, completion: nil)
+        // Signature of the completionWithItemsHandler
+        //typealias UIActivityViewControllerCompletionWithItemsHandler = (String!, Bool, [AnyObject]!, NSError!) -> Void
         
+        activityVC.completionWithItemsHandler = {
+            (string , bool , anyobjects , error ) in self.imageToShare()}
+        
+        self.presentViewController(activityVC, animated: true, completion: nil)
     }
     
     //MARK: - Camera
@@ -137,6 +147,10 @@ UITextFieldDelegate{
                 (segue.destinationViewController as! MasterViewController).insertNewObject(newMeme)
             }
         }
+        if segue.identifier == "cancelToTable" {
+            // Cancel Button code
+        }
+        
     }
     
     //MARK: - Keyboard Text Field Related

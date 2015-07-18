@@ -92,6 +92,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="Xvh-11-6Bn">
                             <connections>
                                 <action selector="cancelButton:" destination="Kml-62-2J3" id="hdD-QS-YCo"/>
+                                <segue destination="pGg-6v-bdr" kind="show" identifier="cancelToTable" id="v9W-zT-B7f"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -235,6 +236,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="v9W-zT-B7f"/>
         <segue reference="jUr-3t-vfg"/>
     </inferredMetricsTieBreakers>
 </document>

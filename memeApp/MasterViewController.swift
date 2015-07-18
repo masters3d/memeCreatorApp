@@ -10,7 +10,9 @@ import UIKit
 
 class MasterViewController: UITableViewController {
     
-    var objects = [MemePicText]()
+    var myDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+//    var objects = Array(Repeat(count: 6, repeatedValue: MemePicText(topLabel: "TOP1", bottomLabel: "Bottom2", image: UIImage(named: "masters3dLogo")!, editedImage: nil)))
     
     
     override func awakeFromNib() {
@@ -21,8 +23,6 @@ class MasterViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "presentCameraFromFirstViewController:")
         
@@ -49,10 +49,10 @@ class MasterViewController: UITableViewController {
 //    func insertNewObject(sender: AnyObject) {
     func insertNewObject(meme: MemePicText) {
         
-        objects.insert(meme, atIndex: 0)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.insert(meme, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        println(objects)
+        println((UIApplication.sharedApplication().delegate as! AppDelegate).memes)
     }
 
     // MARK: - Segues
@@ -60,7 +60,7 @@ class MasterViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let object = objects[indexPath.row]
+                let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
             (segue.destinationViewController as! DetailViewController).detailItem = object
             }
         }
@@ -73,7 +73,7 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes.count
     }
 
 //    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -87,7 +87,7 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellCustom = tableView.dequeueReusableCellWithIdentifier("CellCustom", forIndexPath: indexPath) as! UITableViewCell
         
-        let object = objects[indexPath.row]
+        let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
         
         let labelTop = cellCustom.viewWithTag(1) as! UILabel
         let labelBottom = cellCustom.viewWithTag(2) as! UILabel
@@ -108,7 +108,7 @@ class MasterViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            objects.removeAtIndex(indexPath.row)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

@@ -12,6 +12,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var memes = Array(Repeat(count: 6, repeatedValue: MemePicText(topLabel: "TOP1", bottomLabel: "Bottom2", image: UIImage(named: "masters3dLogo")!, editedImage: nil)))
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
