@@ -65,7 +65,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="LLg-pw-iaQ"/>
                                     <barButtonItem title="Album" id="oj0-f6-EPe">
                                         <connections>
-                                            <segue destination="pGg-6v-bdr" kind="show" identifier="imageToTable" id="QgD-ea-uoK"/>
+                                            <action selector="albumButton:" destination="Kml-62-2J3" id="n5E-gy-4c4"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="aQZ-XH-IOj"/>
@@ -98,15 +98,18 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bottomText" destination="hUq-Nw-Axh" id="978-tP-3qS"/>
+                        <outlet property="cameraLabel" destination="TmV-1A-j3e" id="6BS-bo-QSu"/>
                         <outlet property="cancelLabel" destination="Xvh-11-6Bn" id="DBc-8C-0FD"/>
                         <outlet property="imageView" destination="0Ca-gR-ZKx" id="JiF-08-yUa"/>
+                        <outlet property="shareLabel" destination="1fK-VX-6Xe" id="Fbv-MP-pmk"/>
                         <outlet property="topText" destination="5mM-ms-GIr" id="R3y-Cu-2rd"/>
                         <outlet property="viewComposite" destination="ktD-RT-6vJ" id="ip9-vC-pQu"/>
+                        <segue destination="pGg-6v-bdr" kind="show" identifier="imageToTable" id="nIT-4P-cTP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Km-PW-dt7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="242" y="-723"/>
+            <point key="canvasLocation" x="236" y="-699"/>
         </scene>
         <!--Master-->
         <scene sceneID="cUi-kZ-frf">

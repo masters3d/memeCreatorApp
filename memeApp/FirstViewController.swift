@@ -14,7 +14,14 @@ class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UI
 UITextFieldDelegate{
     
     @IBAction func cameraButton(sender: AnyObject) {
-        showCameraPicker()
+        presentCamera()
+    }
+    
+    @IBOutlet var cameraLabel: UIBarButtonItem!
+    
+    
+    @IBAction func albumButton(sender: AnyObject) {
+        presentCamera(photoLibrary: true)
     }
     
     @IBOutlet var viewComposite: UIView!
@@ -32,6 +39,9 @@ UITextFieldDelegate{
         shareImage(image2share)
     }
     
+    @IBOutlet var shareLabel: UIBarButtonItem!
+    
+    
     @IBOutlet var cancelLabel: UIBarButtonItem!
     
     @IBAction func cancelButton(sender: AnyObject) {
@@ -40,22 +50,26 @@ UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// Checks to see if font exist
+        if !UIImagePickerController.isSourceTypeAvailable(.Camera){
+            cameraLabel.enabled = false
+        }
         
+        shareLabel.enabled = false
+        
+        /// Checks to see if font exist
         assert(contains((UIFont.familyNames() as! [String]), "Impact"), "Impact font does not exist")
         
         // Sets custom font
-
         topText.text = "TOP"
         bottomText.text = "BOTTOM"
-
+        
         
         func setTextAttibutes(input:UITextField){
             input.defaultTextAttributes = [
-                    NSStrokeColorAttributeName : UIColor.blackColor(),
-                    NSForegroundColorAttributeName : UIColor.whiteColor(),
-                    NSFontAttributeName : UIFont(name: "Impact", size: 38)!,
-                    NSStrokeWidthAttributeName : -2 ]
+                NSStrokeColorAttributeName : UIColor.blackColor(),
+                NSForegroundColorAttributeName : UIColor.whiteColor(),
+                NSFontAttributeName : UIFont(name: "Impact", size: 38)!,
+                NSStrokeWidthAttributeName : -2 ]
             input.textAlignment  = .Center
             input.delegate = self
             input.placeholder = nil
@@ -81,9 +95,6 @@ UITextFieldDelegate{
         //self.navigationController?.navigationBarHidden = false
     }
     
-    func showCameraPicker(){
-        self.presentCamera()
-    }
     
     //MARK: - Image Saving
     
@@ -94,7 +105,7 @@ UITextFieldDelegate{
         self.imageView.image = image
         
         
-       // println(saveImageToUserFolder(image))
+        // println(saveImageToUserFolder(image))
         
         imagePickerControllerDidCancel(self.cameraUI)
     }
@@ -112,25 +123,36 @@ UITextFieldDelegate{
         //typealias UIActivityViewControllerCompletionWithItemsHandler = (String!, Bool, [AnyObject]!, NSError!) -> Void
         
         activityVC.completionWithItemsHandler = {
-            (string , bool , anyobjects , error ) in self.imageToShare()}
+            (_ , success , _ , _ ) in
+            
+            if success {
+                self.imageToShare()}}
         
         self.presentViewController(activityVC, animated: true, completion: nil)
     }
     
-    //MARK: - Camera
+    //MARK: - Camera and Album picker
     
-    func presentCamera(){
+    func presentCamera(photoLibrary:Bool = false){
         cameraUI.delegate = self
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            cameraUI.sourceType = UIImagePickerControllerSourceType.Camera
-        } else {
+        
+        if !photoLibrary {
             cameraUI.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        } else {
+
+            if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+                cameraUI.sourceType = UIImagePickerControllerSourceType.Camera
+            } else {
+                cameraUI.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            }
         }
         cameraUI.mediaTypes = [kUTTypeImage] // This is the default
         cameraUI.allowsEditing = true
         
-        self.presentViewController(cameraUI, animated: true, completion: nil)
+        self.presentViewController(cameraUI, animated: true, completion: { self.shareLabel.enabled = true})
     }
+    
+    
     
     //MARK: - Cancel
     
@@ -142,7 +164,7 @@ UITextFieldDelegate{
         if segue.identifier == "imageToTable" {
             if let image = self.imageView.image {
                 let newMeme = MemePicText(topLabel: topText.text, bottomLabel: bottomText.text, image: image, editedImage: viewComposite.jj_takeSnapshotOfCurrentFrame())
-
+                
                 
                 (segue.destinationViewController as! MasterViewController).insertNewObject(newMeme)
             }
@@ -161,7 +183,7 @@ UITextFieldDelegate{
     
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
-
+        
     }
     
     /*
