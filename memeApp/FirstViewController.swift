@@ -13,6 +13,7 @@ import MobileCoreServices
 class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UIAlertViewDelegate, UINavigationControllerDelegate,
 UITextFieldDelegate{
     
+    
     @IBAction func cameraButton(sender: AnyObject) {
         presentCamera()
     }
@@ -88,10 +89,12 @@ UITextFieldDelegate{
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.tabBarController?.tabBar.hidden = true
         //self.navigationController?.navigationBarHidden = true
     }
     
     override func viewWillDisappear(animated: Bool) {
+        self.tabBarController?.tabBar.hidden = false
         //self.navigationController?.navigationBarHidden = false
     }
     
@@ -139,7 +142,7 @@ UITextFieldDelegate{
         if !photoLibrary {
             cameraUI.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         } else {
-
+            
             if UIImagePickerController.isSourceTypeAvailable(.Camera) {
                 cameraUI.sourceType = UIImagePickerControllerSourceType.Camera
             } else {
@@ -167,6 +170,11 @@ UITextFieldDelegate{
                 
                 
                 (segue.destinationViewController as! MasterViewController).insertNewObject(newMeme)
+                
+ // Adventures with Tab Controler
+ //               ((segue.destinationViewController as? UITabBarController)?.viewControllers?.first as? MasterViewController)?.insertNewObject(newMeme)
+                
+                
             }
         }
         if segue.identifier == "cancelToTable" {

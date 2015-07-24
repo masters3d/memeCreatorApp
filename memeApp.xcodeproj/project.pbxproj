@@ -19,6 +19,8 @@
 		9D99F6451B02505B00D7F06A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99F6441B02505B00D7F06A /* FirstViewController.swift */; };
 		9DACE9031B58603D0032CBA6 /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DACE9021B58603D0032CBA6 /* Impact.ttf */; };
 		9DACE9051B586C0E0032CBA6 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DACE9041B586C0E0032CBA6 /* extensions.swift */; };
+		9DEC7B1D1B605F540015B41B /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC7B1C1B605F540015B41B /* CollectionViewController.swift */; };
+		9DEC7B1F1B6066190015B41B /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC7B1E1B6066190015B41B /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		9D99F6441B02505B00D7F06A /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		9DACE9021B58603D0032CBA6 /* Impact.ttf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Impact.ttf; sourceTree = "<group>"; };
 		9DACE9041B586C0E0032CBA6 /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		9DEC7B1C1B605F540015B41B /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		9DEC7B1E1B6066190015B41B /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,10 +95,12 @@
 			children = (
 				9D99F6221B024EF600D7F06A /* AppDelegate.swift */,
 				9D99F6241B024EF600D7F06A /* MasterViewController.swift */,
+				9DEC7B1E1B6066190015B41B /* CollectionViewCell.swift */,
 				9D99F6261B024EF600D7F06A /* DetailViewController.swift */,
 				9D34E1921B05068A002933D2 /* localStore.swift */,
-				9DACE9041B586C0E0032CBA6 /* extensions.swift */,
 				9D99F6441B02505B00D7F06A /* FirstViewController.swift */,
+				9DACE9041B586C0E0032CBA6 /* extensions.swift */,
+				9DEC7B1C1B605F540015B41B /* CollectionViewController.swift */,
 				9D99F6281B024EF600D7F06A /* Main.storyboard */,
 				9D99F62B1B024EF600D7F06A /* Images.xcassets */,
 				9D99F62D1B024EF600D7F06A /* LaunchScreen.xib */,
@@ -233,8 +239,10 @@
 			files = (
 				9D99F6271B024EF600D7F06A /* DetailViewController.swift in Sources */,
 				9D99F6251B024EF600D7F06A /* MasterViewController.swift in Sources */,
+				9DEC7B1F1B6066190015B41B /* CollectionViewCell.swift in Sources */,
 				9D99F6451B02505B00D7F06A /* FirstViewController.swift in Sources */,
 				9DACE9051B586C0E0032CBA6 /* extensions.swift in Sources */,
+				9DEC7B1D1B605F540015B41B /* CollectionViewController.swift in Sources */,
 				9D34E1931B05068A002933D2 /* localStore.swift in Sources */,
 				9D99F6231B024EF600D7F06A /* AppDelegate.swift in Sources */,
 				9D34E1911B027D45002933D2 /* RBResizer.swift in Sources */,
