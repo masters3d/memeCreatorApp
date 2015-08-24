@@ -24,10 +24,10 @@ struct MemePicText{
         self.topLabel = topLabel
         self.bottomLabel = bottomLabel
         self.date = NSDate()
-        self.image = image
+        self.image = image 
         self.imageURL  = nameAndUrl.imageURL
         self.imageName  = nameAndUrl.name
-        self.editedImage = editedImage
+        self.editedImage = editedImage ?? image
     }
 }
 

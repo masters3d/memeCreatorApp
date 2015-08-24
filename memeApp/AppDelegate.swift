@@ -15,9 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
     
-    //var memes = [MemePicText]()
-    
-    var memes = Array(Repeat(count: 6, repeatedValue: MemePicText(topLabel: "TOP1", bottomLabel: "Bottom2", image: UIImage(named: "masters3dLogo")!, editedImage: nil)))
+    var memes = [MemePicText]()
+
+// This is to test v2 of Meme
+//    var memes = Array(Repeat(count: 6, repeatedValue: MemePicText(topLabel: "TOP1", bottomLabel: "Bottom2", image: UIImage(named: "masters3dLogo")!, editedImage: nil)))
 
     
     

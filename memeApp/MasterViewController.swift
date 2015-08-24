@@ -27,6 +27,11 @@ class MasterViewController: UITableViewController {
 //        self.navigationItem.rightBarButtonItem = addButton
         
         self.navigationItem.leftItemsSupplementBackButton = true
+        
+        if (UIApplication.sharedApplication().delegate as! AppDelegate).memes.isEmpty {
+            self.performSegueWithIdentifier("presentCamera", sender: self)
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {

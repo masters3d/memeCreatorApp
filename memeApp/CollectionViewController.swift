@@ -19,7 +19,7 @@ class CollectionViewController: UICollectionViewController {
         layout.itemSize = CGSize(width: width, height: width)
 
         
-        
+
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -36,6 +36,10 @@ class CollectionViewController: UICollectionViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.collectionView!.reloadData()
     }
 
     /*
@@ -69,11 +73,11 @@ class CollectionViewController: UICollectionViewController {
         
         //let cellImage = cell.viewWithTag(5) as! UIImageView
         
-       cell.memeImageView.image = object.image
+       cell.memeImageView.image = object.editedImage
         //cell.memeImageView.image = UIImage(named: "masters3dLogo")
         // Configure the cell
         
-        println("cell \(indexPath.row) loaded \(object.date)")
+        //println("cell \(indexPath.row) loaded \(object.date)")
     
         return cell
     }

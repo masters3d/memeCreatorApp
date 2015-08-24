@@ -107,9 +107,7 @@ UITextFieldDelegate{
         
         self.imageView.image = image
         
-        
-        // println(saveImageToUserFolder(image))
-        
+                
         imagePickerControllerDidCancel(self.cameraUI)
     }
     //MARK: - Sharing Feature
