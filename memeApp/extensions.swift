@@ -15,7 +15,7 @@ extension UIView {
         
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.mainScreen().scale)
         
-        drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
+        drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
         
         // old style: layer.renderInContext(UIGraphicsGetCurrentContext())
         

@@ -20,14 +20,13 @@ class CollectionViewController: UICollectionViewController {
 
         
 
-
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+//         clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-//        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+//        collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-//                self.collectionView!.registerClass(CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+//                collectionView!.registerClass(CollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
 
 
         // Do any additional setup after loading the view.
@@ -39,7 +38,7 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.collectionView!.reloadData()
+        collectionView!.reloadData()
     }
 
     /*

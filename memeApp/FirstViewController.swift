@@ -89,13 +89,13 @@ UITextFieldDelegate{
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.tabBarController?.tabBar.hidden = true
-        //self.navigationController?.navigationBarHidden = true
+        tabBarController?.tabBar.hidden = true
+        //navigationController?.navigationBarHidden = true
     }
     
     override func viewWillDisappear(animated: Bool) {
-        self.tabBarController?.tabBar.hidden = false
-        //self.navigationController?.navigationBarHidden = false
+        tabBarController?.tabBar.hidden = false
+        //navigationController?.navigationBarHidden = false
     }
     
     
@@ -105,16 +105,16 @@ UITextFieldDelegate{
         
         var image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        self.imageView.image = image
+        imageView.image = image
         
                 
-        imagePickerControllerDidCancel(self.cameraUI)
+        imagePickerControllerDidCancel(cameraUI)
     }
     //MARK: - Sharing Feature
     
     func imageToShare() -> Void{
         
-        self.performSegueWithIdentifier("imageToTable", sender: self)
+        performSegueWithIdentifier("imageToTable", sender: self)
     }
     
     func shareImage(image:UIImage){
@@ -129,7 +129,7 @@ UITextFieldDelegate{
             if success {
                 self.imageToShare()}}
         
-        self.presentViewController(activityVC, animated: true, completion: nil)
+        presentViewController(activityVC, animated: true, completion: nil)
     }
     
     //MARK: - Camera and Album picker
@@ -150,7 +150,7 @@ UITextFieldDelegate{
         cameraUI.mediaTypes = [kUTTypeImage] // This is the default
         cameraUI.allowsEditing = true
         
-        self.presentViewController(cameraUI, animated: true, completion: { self.shareLabel.enabled = true})
+        presentViewController(cameraUI, animated: true, completion: { self.shareLabel.enabled = true})
     }
     
     
@@ -158,12 +158,12 @@ UITextFieldDelegate{
     //MARK: - Cancel
     
     func imagePickerControllerDidCancel(picker:UIImagePickerController){
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "imageToTable" {
-            if let image = self.imageView.image {
+            if let image = imageView.image {
                 let newMeme = MemePicText(topLabel: topText.text, bottomLabel: bottomText.text, image: image, editedImage: viewComposite.jj_takeSnapshotOfCurrentFrame())
                 
                 
@@ -182,6 +182,8 @@ UITextFieldDelegate{
     }
     
     //MARK: - Keyboard Text Field Related
+    
+    // Hide the keyboard when user hits the return key
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -189,7 +191,20 @@ UITextFieldDelegate{
     
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
-        
+    }
+    
+    
+    // Subscribe to keyboard show/hide notification.
+    // This is needed so that we know when to slide the view upwards.
+    func subscribeTokeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    // Unsubscribe the notifications.
+    func unsubscribeFromKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     /*
@@ -205,4 +220,4 @@ UITextFieldDelegate{
     
     
     
-}
+    }

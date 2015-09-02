@@ -19,6 +19,8 @@ struct MemePicText{
     var imageName:String
     var editedImage:UIImage?
     
+    // Custom init to handle edited image ??
+    
     init(topLabel:String, bottomLabel:String, image:UIImage, editedImage:UIImage? ){
         let nameAndUrl = saveImageToUserFolder(image)
         self.topLabel = topLabel

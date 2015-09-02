@@ -20,16 +20,16 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        navigationItem.leftBarButtonItem = editButtonItem()
         
 //        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "presentCameraFromFirstViewController:")
         
-//        self.navigationItem.rightBarButtonItem = addButton
+//        navigationItem.rightBarButtonItem = addButton
         
-        self.navigationItem.leftItemsSupplementBackButton = true
+        navigationItem.leftItemsSupplementBackButton = true
         
         if (UIApplication.sharedApplication().delegate as! AppDelegate).memes.isEmpty {
-            self.performSegueWithIdentifier("presentCamera", sender: self)
+            performSegueWithIdentifier("presentCamera", sender: self)
             
         }
     }
@@ -51,7 +51,7 @@ class MasterViewController: UITableViewController {
 //        println(vc1)
 //        println(vc2)
         
-        //self.presentViewController(vc, animated: true, completion: nil)
+        //presentViewController(vc, animated: true, completion: nil)
         
     }
     
@@ -60,7 +60,7 @@ class MasterViewController: UITableViewController {
         
         (UIApplication.sharedApplication().delegate as! AppDelegate).memes.insert(meme, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         println((UIApplication.sharedApplication().delegate as! AppDelegate).memes)
     }
     
@@ -68,7 +68,7 @@ class MasterViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = tableView.indexPathForSelectedRow() {
                 let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
                 (segue.destinationViewController as! DetailViewController).detailItem = object
             }

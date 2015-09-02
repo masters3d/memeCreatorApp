@@ -15,14 +15,14 @@ class DetailViewController: UIViewController {
     var detailItem: MemePicText? {
         didSet {
             // Update the view.
-            self.configureView()
+            configureView()
         }
     }
     
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = self.detailItem {
-            if let label = self.detailDescriptionLabel {
+        if let detail = detailItem {
+            if let label = detailDescriptionLabel {
                 label.text = detail.topLabel
             }
         }
@@ -31,7 +31,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.configureView()
+        configureView()
     }
     
     override func didReceiveMemoryWarning() {
