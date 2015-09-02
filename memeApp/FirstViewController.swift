@@ -13,6 +13,8 @@ import MobileCoreServices
 class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UIAlertViewDelegate, UINavigationControllerDelegate,
 UITextFieldDelegate{
     
+    var tapRecognizer: UITapGestureRecognizer? = nil
+    
     
     @IBAction func cameraButton(sender: AnyObject) {
         presentCamera()
@@ -51,6 +53,11 @@ UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //enables tap to exit keyboard
+        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer?.numberOfTapsRequired = 1
+
+        //hides camera when running in simulator
         if !UIImagePickerController.isSourceTypeAvailable(.Camera){
             cameraLabel.enabled = false
         }
@@ -82,15 +89,16 @@ UITextFieldDelegate{
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-        // Dispose of any resources that can be recreated.
-    }
     
     override func viewWillAppear(animated: Bool) {
         tabBarController?.tabBar.hidden = true
         //navigationController?.navigationBarHidden = true
+        
+        /* Add tap recognizer to dismiss keyboard */
+            addKeyboardDismissRecognizer()
+        
+        /* Subscribe to keyboard events so we can adjust the view to show hidden controls */
+             subscribeTokeyboardNotifications()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -205,6 +213,44 @@ UITextFieldDelegate{
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    //Keyboard will show and hide
+    
+        func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+            let userInfo = notification.userInfo
+            let keyboardSize =
+            userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+            return keyboardSize.CGRectValue().height
+        }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if bottomText.isFirstResponder() {
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if bottomText.isFirstResponder() {
+            view.frame.origin.y += getKeyboardHeight(notification)
+        }
+    }
+    
+
+    
+    //Tap Recognizer
+    
+    func addKeyboardDismissRecognizer() {
+        view.addGestureRecognizer(tapRecognizer!)
+    }
+    
+    func removeKeyboardDismissRecognizer() {
+        view.removeGestureRecognizer(tapRecognizer!)
+    }
+    
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     /*
