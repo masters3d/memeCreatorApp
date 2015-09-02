@@ -10,7 +10,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
+    @IBOutlet var imageView: UIImageView!
     
     var detailItem: MemePicText? {
         didSet {
@@ -22,9 +22,9 @@ class DetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.topLabel
-            }
+            
+            imageView.image = detail.editedImage
+            
         }
     }
     
@@ -34,11 +34,26 @@ class DetailViewController: UIViewController {
         configureView()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(animated: Bool) {
+        tabBarController?.tabBar.hidden = true
+        
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        tabBarController?.tabBar.hidden = false
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "presentEdit" {
+            if let meme = detailItem {
+                var editController = (segue.destinationViewController as! FirstViewController)
+                editController.bottomText.text = meme.bottomLabel
+                editController.imageView.image = meme.image
+                editController.topText.text = meme.topLabel
+            }
+        }
+    }
     
 }
 

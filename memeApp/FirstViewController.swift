@@ -227,18 +227,17 @@ UITextFieldDelegate{
     func keyboardWillShow(notification: NSNotification) {
         
         if bottomText.isFirstResponder() {
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         if bottomText.isFirstResponder() {
-            view.frame.origin.y += getKeyboardHeight(notification)
+            view.frame.origin.y = 0.0
         }
     }
     
 
-    
     //Tap Recognizer
     
     func addKeyboardDismissRecognizer() {

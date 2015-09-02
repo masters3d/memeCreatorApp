@@ -80,6 +80,23 @@ class CollectionViewController: UICollectionViewController {
     
         return cell
     }
+    
+    
+    // MARK: - Segues
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showDetail" {
+            
+            if let indexPath = collectionView?.indexPathsForSelectedItems().first as? NSIndexPath
+            {
+                let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.item]
+                
+                var destinationController = (segue.destinationViewController as! DetailViewController)
+                destinationController.detailItem = object
+                destinationController.imageView.image = object.editedImage
+            }
+        }
+    }
 
     // MARK: UICollectionViewDelegate
 

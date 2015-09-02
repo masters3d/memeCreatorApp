@@ -116,7 +116,7 @@
         <scene sceneID="cUi-kZ-frf">
             <objects>
                 <navigationController storyboardIdentifier="MasterNavigation" title="Master" id="rS3-R9-Ivy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="JwC-cL-07n"/>
+                    <tabBarItem key="tabBarItem" title="" id="JwC-cL-07n"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
@@ -176,9 +176,6 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="Ah7-4n-0Wa" kind="show" identifier="showDetail" id="jUr-3t-vfg"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellCustom" rowHeight="80" id="Bb4-w6-ve7">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -217,7 +214,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" image="table_90x90" id="HTM-oM-P7y"/>
-                    <navigationItem key="navigationItem" title="Title" id="Qfu-f7-c35">
+                    <navigationItem key="navigationItem" title="Memes" id="Qfu-f7-c35">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4MH-eW-wyw">
                             <connections>
                                 <segue destination="Kml-62-2J3" kind="show" identifier="presentCamera" id="LwO-gn-8pL"/>
@@ -241,31 +238,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Detail view content goes here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lei-5M-9Gs">
-                                <rect key="frame" x="20" y="292" width="560" height="17"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" size="system"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D8x-ji-i1d">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVd-aY-xwd">
+                                <rect key="frame" x="0.0" y="553" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="P3y-bn-eWc"/>
+                                    <barButtonItem style="plain" systemItem="trash" id="lvS-d1-rzE">
+                                        <connections>
+                                            <action selector="cameraButton:" destination="Kml-62-2J3" id="atG-Ey-HcM"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="epw-OD-4RH"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="dEn-QW-0cX"/>
+                                    <barButtonItem systemItem="edit" id="1Wc-Z6-MIL">
+                                        <connections>
+                                            <action selector="albumButton:" destination="Kml-62-2J3" id="pYU-Qe-WUD"/>
+                                            <segue destination="Kml-62-2J3" kind="show" identifier="presentEdit" id="JOQ-ti-b44"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="d3w-2r-WcO"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Lei-5M-9Gs" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leading" constant="20" symbolic="YES" id="62x-JV-TTJ"/>
-                            <constraint firstItem="Lei-5M-9Gs" firstAttribute="centerY" secondItem="MMQ-IT-qOo" secondAttribute="centerY" id="JzS-HC-Rnl"/>
-                            <constraint firstAttribute="trailing" secondItem="Lei-5M-9Gs" secondAttribute="trailing" constant="20" symbolic="YES" id="pXB-RP-Zz6"/>
+                            <constraint firstItem="D8x-ji-i1d" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leading" id="17B-7s-Mkw"/>
+                            <constraint firstItem="ZVd-aY-xwd" firstAttribute="leading" secondItem="D8x-ji-i1d" secondAttribute="leading" id="2G8-vi-hiu"/>
+                            <constraint firstItem="ZVd-aY-xwd" firstAttribute="trailing" secondItem="D8x-ji-i1d" secondAttribute="trailing" id="5TC-d8-h29"/>
+                            <constraint firstItem="a0L-h9-sNL" firstAttribute="top" secondItem="D8x-ji-i1d" secondAttribute="bottom" constant="49" id="5Xh-0Y-GLf"/>
+                            <constraint firstItem="D8x-ji-i1d" firstAttribute="top" secondItem="cIm-e0-J51" secondAttribute="bottom" id="Rwz-lN-CxF"/>
+                            <constraint firstAttribute="trailing" secondItem="D8x-ji-i1d" secondAttribute="trailing" id="ZzZ-cJ-fbM"/>
+                            <constraint firstItem="ZVd-aY-xwd" firstAttribute="top" secondItem="D8x-ji-i1d" secondAttribute="bottom" constant="2" id="fA2-PU-aFx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
+                    <navigationItem key="navigationItem" title="Detail View" id="cra-N8-TIN"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="detailDescriptionLabel" destination="Lei-5M-9Gs" id="sCT-F7-F6f"/>
+                        <outlet property="imageView" destination="D8x-ji-i1d" id="frw-NV-YYQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2931" y="410"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Memes-->
         <scene sceneID="vnE-ip-f4R">
             <objects>
                 <collectionViewController id="Grf-0C-TQo" customClass="CollectionViewController" customModule="memeApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -301,6 +319,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="memeImageView" destination="Vnr-z7-QaL" id="qd1-tc-4dF"/>
+                                    <segue destination="Ah7-4n-0Wa" kind="show" identifier="showDetail" id="rnS-ds-nyD"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -309,7 +328,7 @@
                             <outlet property="delegate" destination="Grf-0C-TQo" id="Thh-8j-FIm"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="tvG-FY-uZS"/>
+                    <navigationItem key="navigationItem" title="Memes" id="tvG-FY-uZS"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKX-0x-9vs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -340,7 +359,8 @@
         <image name="table_90x90" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jUr-3t-vfg"/>
+        <segue reference="JOQ-ti-b44"/>
+        <segue reference="hcq-Yk-JYr"/>
         <segue reference="pVJ-Hl-JXq"/>
     </inferredMetricsTieBreakers>
 </document>

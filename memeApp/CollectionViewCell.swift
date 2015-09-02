@@ -13,4 +13,8 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet var memeImageView: UIImageView!
     
     
+    
+    
+    
+    
 }

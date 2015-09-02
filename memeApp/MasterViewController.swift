@@ -11,6 +11,8 @@ import UIKit
 class MasterViewController: UITableViewController {
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
+    
+    let backButtonTittle = "Delete"
 
     
     override func awakeFromNib() {
@@ -20,7 +22,12 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        navigationItem.leftBarButtonItem = editButtonItem()
+
+        navigationItem.leftBarButtonItem = {
+            let editButton = self.editButtonItem()
+            editButton.title = self.backButtonTittle
+            return editButton
+            }()
         
 //        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "presentCameraFromFirstViewController:")
         
@@ -34,12 +41,22 @@ class MasterViewController: UITableViewController {
         }
     }
     
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+
+        if !editing {
+            navigationItem.leftBarButtonItem?.title = backButtonTittle}
+
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
+
+
     
     func presentCameraFromFirstViewController(sender: AnyObject){
         //let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -70,7 +87,9 @@ class MasterViewController: UITableViewController {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow() {
                 let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
-                (segue.destinationViewController as! DetailViewController).detailItem = object
+                var destinationController = (segue.destinationViewController as! DetailViewController)
+                destinationController.detailItem = object
+                destinationController.imageView.image = object.editedImage
             }
         }
     }
