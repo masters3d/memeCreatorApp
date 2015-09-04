@@ -10,28 +10,44 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
+    
     @IBOutlet var imageView: UIImageView!
     
-    var detailItem: MemePicText? {
-        didSet {
-            // Update the view.
-            configureView()
+    var detailItem: MemePicText?
+    
+    var indexOfItemToDelete:Int?
+    
+    @IBAction func deteleCurrentMeme(sender: UIBarButtonItem) {
+        
+        if let index = indexOfItemToDelete{
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.removeAtIndex(index)
+            navigationController?.popViewControllerAnimated(true)
+
         }
     }
     
-    func configureView() {
+    
+    func configureView(meme:MemePicText) {
         // Update the user interface for the detail item.
-        if let detail = detailItem {
-            
-            imageView.image = detail.editedImage
-            
-        }
+            detailItem = meme
+        
     }
+    
+    func setIndexToDelete(index: Int){
+        indexOfItemToDelete = index
+
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        configureView()
+        if let image = detailItem?.editedImage {
+        imageView.image = image
+        }
+
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,9 +64,8 @@ class DetailViewController: UIViewController {
         if segue.identifier == "presentEdit" {
             if let meme = detailItem {
                 var editController = (segue.destinationViewController as! FirstViewController)
-                editController.bottomText.text = meme.bottomLabel
-                editController.imageView.image = meme.image
-                editController.topText.text = meme.topLabel
+                editController.editMemeToNewMeme(meme)
+           
             }
         }
     }

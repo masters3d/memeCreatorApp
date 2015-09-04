@@ -20,6 +20,8 @@ struct MemePicText{
     var editedImage:UIImage?
     
     // Custom init to handle edited image ??
+    // I need this because I want to have edited image to fall back to image if nill
+    // struct default init is limiting
     
     init(topLabel:String, bottomLabel:String, image:UIImage, editedImage:UIImage? ){
         let nameAndUrl = saveImageToUserFolder(image)

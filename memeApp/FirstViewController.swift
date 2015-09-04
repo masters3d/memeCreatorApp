@@ -13,8 +13,9 @@ import MobileCoreServices
 class FirstViewController: UIViewController, UIImagePickerControllerDelegate, UIAlertViewDelegate, UINavigationControllerDelegate,
 UITextFieldDelegate{
     
-    var tapRecognizer: UITapGestureRecognizer? = nil
+    var memeToEdit:MemePicText?
     
+    var tapRecognizer: UITapGestureRecognizer? = nil
     
     @IBAction func cameraButton(sender: AnyObject) {
         presentCamera()
@@ -26,6 +27,8 @@ UITextFieldDelegate{
     @IBAction func albumButton(sender: AnyObject) {
         presentCamera(photoLibrary: true)
     }
+    
+    @IBOutlet var albumLabel: UIBarButtonItem!
     
     @IBOutlet var viewComposite: UIView!
     
@@ -56,13 +59,15 @@ UITextFieldDelegate{
         //enables tap to exit keyboard
         tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
         tapRecognizer?.numberOfTapsRequired = 1
-
+        
         //hides camera when running in simulator
         if !UIImagePickerController.isSourceTypeAvailable(.Camera){
             cameraLabel.enabled = false
         }
         
         shareLabel.enabled = false
+//        cameraLabel.enabled = true
+//        albumLabel.enabled = true
         
         /// Checks to see if font exist
         assert(contains((UIFont.familyNames() as! [String]), "Impact"), "Impact font does not exist")
@@ -86,6 +91,12 @@ UITextFieldDelegate{
         setTextAttibutes(topText)
         setTextAttibutes(bottomText)
         
+        
+        //Set up Controller to Edit already save Meme
+        if let meme = memeToEdit {
+            setupEditController(meme)
+        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -95,10 +106,10 @@ UITextFieldDelegate{
         //navigationController?.navigationBarHidden = true
         
         /* Add tap recognizer to dismiss keyboard */
-            addKeyboardDismissRecognizer()
+        addKeyboardDismissRecognizer()
         
         /* Subscribe to keyboard events so we can adjust the view to show hidden controls */
-             subscribeTokeyboardNotifications()
+        subscribeTokeyboardNotifications()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -111,13 +122,32 @@ UITextFieldDelegate{
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]){
         
-        var image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        var image = (info[UIImagePickerControllerOriginalImage] as! UIImage)
         
+        shareLabel.enabled = true
         imageView.image = image
         
-                
         imagePickerControllerDidCancel(cameraUI)
     }
+    
+    //MARK: - Setup controller for editing of Meme
+    
+    func editMemeToNewMeme(meme:MemePicText){
+        memeToEdit = meme
+        
+    }
+    
+    func setupEditController(meme:MemePicText){
+        bottomText?.text = meme.bottomLabel
+        imageView.image = meme.image
+        topText?.text = meme.topLabel
+        shareLabel.enabled = true
+        cameraLabel.enabled = false
+        albumLabel.enabled = false
+    }
+
+    
+    
     //MARK: - Sharing Feature
     
     func imageToShare() -> Void{
@@ -158,7 +188,7 @@ UITextFieldDelegate{
         cameraUI.mediaTypes = [kUTTypeImage] // This is the default
         cameraUI.allowsEditing = true
         
-        presentViewController(cameraUI, animated: true, completion: { self.shareLabel.enabled = true})
+        presentViewController(cameraUI, animated: true, completion: {})
     }
     
     
@@ -177,8 +207,8 @@ UITextFieldDelegate{
                 
                 (segue.destinationViewController as! MasterViewController).insertNewObject(newMeme)
                 
- // Adventures with Tab Controler
- //               ((segue.destinationViewController as? UITabBarController)?.viewControllers?.first as? MasterViewController)?.insertNewObject(newMeme)
+                // Adventures with Tab Controler
+                //               ((segue.destinationViewController as? UITabBarController)?.viewControllers?.first as? MasterViewController)?.insertNewObject(newMeme)
                 
                 
             }
@@ -217,12 +247,12 @@ UITextFieldDelegate{
     
     //Keyboard will show and hide
     
-        func getKeyboardHeight(notification: NSNotification) -> CGFloat {
-            let userInfo = notification.userInfo
-            let keyboardSize =
-            userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-            return keyboardSize.CGRectValue().height
-        }
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize =
+        userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.CGRectValue().height
+    }
     
     func keyboardWillShow(notification: NSNotification) {
         
@@ -237,7 +267,7 @@ UITextFieldDelegate{
         }
     }
     
-
+    
     //Tap Recognizer
     
     func addKeyboardDismissRecognizer() {
@@ -265,4 +295,4 @@ UITextFieldDelegate{
     
     
     
-    }
+}

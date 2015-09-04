@@ -19,6 +19,10 @@ class MasterViewController: UITableViewController {
         super.awakeFromNib()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -29,11 +33,8 @@ class MasterViewController: UITableViewController {
             return editButton
             }()
         
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "presentCameraFromFirstViewController:")
         
-//        navigationItem.rightBarButtonItem = addButton
-        
-        navigationItem.leftItemsSupplementBackButton = true
+        //navigationItem.leftItemsSupplementBackButton = true
         
         if (UIApplication.sharedApplication().delegate as! AppDelegate).memes.isEmpty {
             performSegueWithIdentifier("presentCamera", sender: self)
@@ -46,6 +47,17 @@ class MasterViewController: UITableViewController {
 
         if !editing {
             navigationItem.leftBarButtonItem?.title = backButtonTittle}
+        if editing {
+            if (UIApplication.sharedApplication().delegate as! AppDelegate).memes.isEmpty{
+                
+                setEditing(false, animated: false)
+                
+            var alert = UIAlertController(title: "No Memes", message: "Nothing to Delete", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+          }
 
         
     }
@@ -58,38 +70,28 @@ class MasterViewController: UITableViewController {
 
 
     
-    func presentCameraFromFirstViewController(sender: AnyObject){
-        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard?.instantiateViewControllerWithIdentifier("MasterNavigation") as! UINavigationController
-        
-//        let vc1 = (storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController") as! UITabBarController).viewControllers
-//        let vc2 = vc1?.first as! UINavigationController
-//        
-//        println(vc1)
-//        println(vc2)
-        
-        //presentViewController(vc, animated: true, completion: nil)
-        
-    }
     
-    //    func insertNewObject(sender: AnyObject) {
     func insertNewObject(meme: MemePicText) {
         
         (UIApplication.sharedApplication().delegate as! AppDelegate).memes.insert(meme, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        println((UIApplication.sharedApplication().delegate as! AppDelegate).memes)
+        //println((UIApplication.sharedApplication().delegate as! AppDelegate).memes)
     }
     
     // MARK: - Segues
     
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow() {
                 let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
-                var destinationController = (segue.destinationViewController as! DetailViewController)
-                destinationController.detailItem = object
-                destinationController.imageView.image = object.editedImage
+                (segue.destinationViewController as! DetailViewController).configureView(object)
+                (segue.destinationViewController as! DetailViewController).setIndexToDelete(indexPath.row)
+
+                //println("indexRow Table \(indexPath.row)\(indexPath.row.getMirror())")
+                
             }
         }
     }
@@ -104,13 +106,6 @@ class MasterViewController: UITableViewController {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).memes.count
     }
     
-    //    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    //        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-    //
-    //        let object = objects[indexPath.row] as! NSDate
-    //        cell.textLabel!.text = object.description
-    //        return cell
-    //    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellCustom = tableView.dequeueReusableCellWithIdentifier("CellCustom", forIndexPath: indexPath) as! UITableViewCell
