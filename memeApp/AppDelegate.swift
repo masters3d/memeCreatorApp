@@ -12,9 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
-    @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
-    
+        
     var memes = [MemePicText]()
 
 // This is to test v2 of Meme

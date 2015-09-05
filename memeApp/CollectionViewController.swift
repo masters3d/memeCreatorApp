@@ -11,6 +11,8 @@ import UIKit
 
 class CollectionViewController: UICollectionViewController {
     
+    @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -28,6 +28,8 @@ UITextFieldDelegate{
         presentCamera(photoLibrary: true)
     }
     
+    @IBOutlet var navigationTitle: UINavigationItem!
+    
     @IBOutlet var albumLabel: UIBarButtonItem!
     
     @IBOutlet var viewComposite: UIView!
@@ -64,6 +66,8 @@ UITextFieldDelegate{
         if !UIImagePickerController.isSourceTypeAvailable(.Camera){
             cameraLabel.enabled = false
         }
+        
+        navigationTitle.title = "New Meme"
         
         shareLabel.enabled = false
 //        cameraLabel.enabled = true
@@ -144,6 +148,7 @@ UITextFieldDelegate{
         shareLabel.enabled = true
         cameraLabel.enabled = false
         albumLabel.enabled = false
+        navigationTitle.title = "Edit Meme"
     }
 
     
