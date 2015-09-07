@@ -63,7 +63,7 @@ class DetailViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "presentEdit" {
             if let meme = detailItem {
-                var editController = (segue.destinationViewController as! FirstViewController)
+                let editController = (segue.destinationViewController as! FirstViewController)
                 editController.editMemeToNewMeme(meme)
            
             }

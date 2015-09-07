@@ -38,7 +38,7 @@ struct MemePicText{
 
 func saveImageToUserFolder(image:UIImage) -> (imageURL:String, name:String )  {
     
-    let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+    let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
     let currentDateTime = NSDate()
     let formatter = NSDateFormatter()
     formatter.dateFormat = "ddMMyyyy-HHmmss"

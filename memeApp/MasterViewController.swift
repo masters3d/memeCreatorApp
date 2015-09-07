@@ -52,7 +52,7 @@ class MasterViewController: UITableViewController {
                 
                 setEditing(false, animated: false)
                 
-            var alert = UIAlertController(title: "No Memes", message: "Nothing to Delete", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "No Memes", message: "Nothing to Delete", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
             }
@@ -85,14 +85,14 @@ class MasterViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow() {
+            guard let indexPath = tableView.indexPathForSelectedRow else {return}
                 let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
                 (segue.destinationViewController as! DetailViewController).configureView(object)
                 (segue.destinationViewController as! DetailViewController).setIndexToDelete(indexPath.row)
 
                 //println("indexRow Table \(indexPath.row)\(indexPath.row.getMirror())")
                 
-            }
+            
         }
     }
     
@@ -108,7 +108,7 @@ class MasterViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellCustom = tableView.dequeueReusableCellWithIdentifier("CellCustom", forIndexPath: indexPath) as! UITableViewCell
+        let cellCustom = tableView.dequeueReusableCellWithIdentifier("CellCustom", forIndexPath: indexPath) 
         
         let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
         

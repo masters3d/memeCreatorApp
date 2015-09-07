@@ -9,12 +9,12 @@
 import UIKit
 
 func RBSquareImageTo(image: UIImage, size: CGSize) -> UIImage? {
-    return RBResizeImage(RBSquareImage(image), size)
+    return RBResizeImage(RBSquareImage(image), targetSize: size)
 }
 
 func RBSquareImage(image: UIImage) -> UIImage? {
-    var originalWidth  = image.size.width
-    var originalHeight = image.size.height
+    let originalWidth  = image.size.width
+    let originalHeight = image.size.height
     
     var edge: CGFloat
     if originalWidth > originalHeight {
@@ -23,12 +23,12 @@ func RBSquareImage(image: UIImage) -> UIImage? {
         edge = originalWidth
     }
     
-    var posX = (originalWidth  - edge) / 2.0
-    var posY = (originalHeight - edge) / 2.0
+    let posX = (originalWidth  - edge) / 2.0
+    let posY = (originalHeight - edge) / 2.0
     
-    var cropSquare = CGRectMake(posX, posY, edge, edge)
+    let cropSquare = CGRectMake(posX, posY, edge, edge)
     
-    var imageRef = CGImageCreateWithImageInRect(image.CGImage, cropSquare);
+    guard let imageRef = CGImageCreateWithImageInRect(image.CGImage, cropSquare) else {fatalError("Could not create image")}
     return UIImage(CGImage: imageRef, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)
 }
 

@@ -59,8 +59,12 @@ class CollectionViewController: UICollectionViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = collectionView?.indexPathsForSelectedItems().first as? NSIndexPath {
-                var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            
+            guard let indexPathItems = collectionView?.indexPathsForSelectedItems(),
+                  let indexPath = indexPathItems.first
+                else  { return }
+                
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 let object = appDelegate.memes[indexPath.item]
                 (segue.destinationViewController as! DetailViewController).configureView(object)
                 (segue.destinationViewController as! DetailViewController).setIndexToDelete(indexPath.item)
@@ -68,12 +72,12 @@ class CollectionViewController: UICollectionViewController {
 
                 
                 
-            }}}
+            }}
     
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = (collectionView.dequeueReusableCellWithReuseIdentifier("memeCell", forIndexPath: indexPath) as! CollectionViewCell)
-        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let object  = appDelegate.memes[indexPath.row]
         cell.memeImageView.image = object.editedImage
         return cell

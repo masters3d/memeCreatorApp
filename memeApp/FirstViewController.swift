@@ -25,7 +25,7 @@ UITextFieldDelegate{
     
     
     @IBAction func albumButton(sender: AnyObject) {
-        presentCamera(photoLibrary: true)
+        presentCamera(true)
     }
     
     @IBOutlet var navigationTitle: UINavigationItem!
@@ -74,7 +74,7 @@ UITextFieldDelegate{
 //        albumLabel.enabled = true
         
         /// Checks to see if font exist
-        assert(contains((UIFont.familyNames() as! [String]), "Impact"), "Impact font does not exist")
+        assert((UIFont.familyNames() ).contains("Impact"), "Impact font does not exist")
         
         // Sets custom font
         topText.text = "TOP"
@@ -124,9 +124,9 @@ UITextFieldDelegate{
     
     //MARK: - Image Saving
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]){
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
         
-        var image = (info[UIImagePickerControllerOriginalImage] as! UIImage)
+        let image = (info[UIImagePickerControllerOriginalImage] as! UIImage)
         
         shareLabel.enabled = true
         imageView.image = image
@@ -190,7 +190,7 @@ UITextFieldDelegate{
                 cameraUI.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
             }
         }
-        cameraUI.mediaTypes = [kUTTypeImage] // This is the default
+//        cameraUI.mediaTypes = ["kUTTypeImage"] // This is the default
         cameraUI.allowsEditing = true
         
         presentViewController(cameraUI, animated: true, completion: {})
@@ -207,7 +207,7 @@ UITextFieldDelegate{
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "imageToTable" {
             if let image = imageView.image {
-                let newMeme = MemePicText(topLabel: topText.text, bottomLabel: bottomText.text, image: image, editedImage: viewComposite.jj_takeSnapshotOfCurrentFrame())
+                let newMeme = MemePicText(topLabel: topText.text ?? "", bottomLabel: bottomText.text ?? "", image: image, editedImage: viewComposite.jj_takeSnapshotOfCurrentFrame())
                 
                 
                 (segue.destinationViewController as! MasterViewController).insertNewObject(newMeme)
