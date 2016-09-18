@@ -17,14 +17,14 @@ UITextFieldDelegate{
     
     var tapRecognizer: UITapGestureRecognizer? = nil
     
-    @IBAction func cameraButton(sender: AnyObject) {
+    @IBAction func cameraButton(_ sender: AnyObject) {
         presentCamera()
     }
     
     @IBOutlet var cameraLabel: UIBarButtonItem!
     
     
-    @IBAction func albumButton(sender: AnyObject) {
+    @IBAction func albumButton(_ sender: AnyObject) {
         presentCamera(true)
     }
     
@@ -42,7 +42,7 @@ UITextFieldDelegate{
     
     var cameraUI = UIImagePickerController()
     
-    @IBAction func share(sender: AnyObject) {
+    @IBAction func share(_ sender: AnyObject) {
         let image2share = viewComposite.jj_takeSnapshotOfCurrentFrame()
         shareImage(image2share)
     }
@@ -52,42 +52,42 @@ UITextFieldDelegate{
     
     @IBOutlet var cancelLabel: UIBarButtonItem!
     
-    @IBAction func cancelButton(sender: AnyObject) {
+    @IBAction func cancelButton(_ sender: AnyObject) {
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //enables tap to exit keyboard
-        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(FirstViewController.handleSingleTap(_:)))
         tapRecognizer?.numberOfTapsRequired = 1
         
         //hides camera when running in simulator
-        if !UIImagePickerController.isSourceTypeAvailable(.Camera){
-            cameraLabel.enabled = false
+        if !UIImagePickerController.isSourceTypeAvailable(.camera){
+            cameraLabel.isEnabled = false
         }
         
         navigationTitle.title = "New Meme"
         
-        shareLabel.enabled = false
+        shareLabel.isEnabled = false
 //        cameraLabel.enabled = true
 //        albumLabel.enabled = true
         
         /// Checks to see if font exist
-        assert((UIFont.familyNames() ).contains("Impact"), "Impact font does not exist")
+        assert((UIFont.familyNames ).contains("Impact"), "Impact font does not exist")
         
         // Sets custom font
         topText.text = "TOP"
         bottomText.text = "BOTTOM"
         
         
-        func setTextAttibutes(input:UITextField){
+        func setTextAttibutes(_ input:UITextField){
             input.defaultTextAttributes = [
-                NSStrokeColorAttributeName : UIColor.blackColor(),
-                NSForegroundColorAttributeName : UIColor.whiteColor(),
+                NSStrokeColorAttributeName : UIColor.black,
+                NSForegroundColorAttributeName : UIColor.white,
                 NSFontAttributeName : UIFont(name: "Impact", size: 38)!,
                 NSStrokeWidthAttributeName : -2 ]
-            input.textAlignment  = .Center
+            input.textAlignment  = .center
             input.delegate = self
             input.placeholder = nil
         }
@@ -105,8 +105,8 @@ UITextFieldDelegate{
     }
     
     
-    override func viewWillAppear(animated: Bool) {
-        tabBarController?.tabBar.hidden = true
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = true
         //navigationController?.navigationBarHidden = true
         
         /* Add tap recognizer to dismiss keyboard */
@@ -116,19 +116,19 @@ UITextFieldDelegate{
         subscribeTokeyboardNotifications()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        tabBarController?.tabBar.hidden = false
+    override func viewWillDisappear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
         //navigationController?.navigationBarHidden = false
     }
     
     
     //MARK: - Image Saving
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         
         let image = (info[UIImagePickerControllerOriginalImage] as! UIImage)
         
-        shareLabel.enabled = true
+        shareLabel.isEnabled = true
         imageView.image = image
         
         imagePickerControllerDidCancel(cameraUI)
@@ -136,18 +136,18 @@ UITextFieldDelegate{
     
     //MARK: - Setup controller for editing of Meme
     
-    func editMemeToNewMeme(meme:MemePicText){
+    func editMemeToNewMeme(_ meme:MemePicText){
         memeToEdit = meme
         
     }
     
-    func setupEditController(meme:MemePicText){
+    func setupEditController(_ meme:MemePicText){
         bottomText?.text = meme.bottomLabel
         imageView.image = meme.image
         topText?.text = meme.topLabel
-        shareLabel.enabled = true
-        cameraLabel.enabled = false
-        albumLabel.enabled = false
+        shareLabel.isEnabled = true
+        cameraLabel.isEnabled = false
+        albumLabel.isEnabled = false
         navigationTitle.title = "Edit Meme"
     }
 
@@ -157,10 +157,10 @@ UITextFieldDelegate{
     
     func imageToShare() -> Void{
         
-        performSegueWithIdentifier("imageToTable", sender: self)
+        performSegue(withIdentifier: "imageToTable", sender: self)
     }
     
-    func shareImage(image:UIImage){
+    func shareImage(_ image:UIImage){
         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         
         // Signature of the completionWithItemsHandler
@@ -172,45 +172,45 @@ UITextFieldDelegate{
             if success {
                 self.imageToShare()}}
         
-        presentViewController(activityVC, animated: true, completion: nil)
+        present(activityVC, animated: true, completion: nil)
     }
     
     //MARK: - Camera and Album picker
     
-    func presentCamera(photoLibrary:Bool = false){
+    func presentCamera(_ photoLibrary:Bool = false){
         cameraUI.delegate = self
         
         if !photoLibrary {
-            cameraUI.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            cameraUI.sourceType = UIImagePickerControllerSourceType.photoLibrary
         } else {
             
-            if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-                cameraUI.sourceType = UIImagePickerControllerSourceType.Camera
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                cameraUI.sourceType = UIImagePickerControllerSourceType.camera
             } else {
-                cameraUI.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                cameraUI.sourceType = UIImagePickerControllerSourceType.photoLibrary
             }
         }
 //        cameraUI.mediaTypes = ["kUTTypeImage"] // This is the default
         cameraUI.allowsEditing = true
         
-        presentViewController(cameraUI, animated: true, completion: {})
+        present(cameraUI, animated: true, completion: {})
     }
     
     
     
     //MARK: - Cancel
     
-    func imagePickerControllerDidCancel(picker:UIImagePickerController){
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker:UIImagePickerController){
+        dismiss(animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "imageToTable" {
             if let image = imageView.image {
                 let newMeme = MemePicText(topLabel: topText.text ?? "", bottomLabel: bottomText.text ?? "", image: image, editedImage: viewComposite.jj_takeSnapshotOfCurrentFrame())
                 
                 
-                (segue.destinationViewController as! MasterViewController).insertNewObject(newMeme)
+                (segue.destination as! MasterViewController).insertNewObject(newMeme)
                 
                 // Adventures with Tab Controler
                 //               ((segue.destinationViewController as? UITabBarController)?.viewControllers?.first as? MasterViewController)?.insertNewObject(newMeme)
@@ -227,12 +227,12 @@ UITextFieldDelegate{
     //MARK: - Keyboard Text Field Related
     
     // Hide the keyboard when user hits the return key
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = ""
     }
     
@@ -240,34 +240,34 @@ UITextFieldDelegate{
     // Subscribe to keyboard show/hide notification.
     // This is needed so that we know when to slide the view upwards.
     func subscribeTokeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FirstViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FirstViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     // Unsubscribe the notifications.
     func unsubscribeFromKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     //Keyboard will show and hide
     
-    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
-        let userInfo = notification.userInfo
+    func getKeyboardHeight(_ notification: Notification) -> CGFloat {
+        let userInfo = (notification as NSNotification).userInfo
         let keyboardSize =
         userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.CGRectValue().height
+        return keyboardSize.cgRectValue.height
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(_ notification: Notification) {
         
-        if bottomText.isFirstResponder() {
+        if bottomText.isFirstResponder {
             view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
-        if bottomText.isFirstResponder() {
+    func keyboardWillHide(_ notification: Notification) {
+        if bottomText.isFirstResponder {
             view.frame.origin.y = 0.0
         }
     }
@@ -283,7 +283,7 @@ UITextFieldDelegate{
         view.removeGestureRecognizer(tapRecognizer!)
     }
     
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+    func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
     

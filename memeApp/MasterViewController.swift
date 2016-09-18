@@ -10,7 +10,7 @@ import UIKit
 
 class MasterViewController: UITableViewController {
     
-    @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) { }
     
     let backButtonTittle = "Delete"
 
@@ -19,7 +19,7 @@ class MasterViewController: UITableViewController {
         super.awakeFromNib()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
     
@@ -28,7 +28,7 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         navigationItem.leftBarButtonItem = {
-            let editButton = self.editButtonItem()
+            let editButton = self.editButtonItem
             editButton.title = self.backButtonTittle
             return editButton
             }()
@@ -36,25 +36,25 @@ class MasterViewController: UITableViewController {
         
         //navigationItem.leftItemsSupplementBackButton = true
         
-        if (UIApplication.sharedApplication().delegate as! AppDelegate).memes.isEmpty {
-            performSegueWithIdentifier("presentCamera", sender: self)
+        if (UIApplication.shared.delegate as! AppDelegate).memes.isEmpty {
+            performSegue(withIdentifier: "presentCamera", sender: self)
             
         }
     }
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
 
         if !editing {
             navigationItem.leftBarButtonItem?.title = backButtonTittle}
         if editing {
-            if (UIApplication.sharedApplication().delegate as! AppDelegate).memes.isEmpty{
+            if (UIApplication.shared.delegate as! AppDelegate).memes.isEmpty{
                 
                 setEditing(false, animated: false)
                 
-            let alert = UIAlertController(title: "No Memes", message: "Nothing to Delete", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "No Memes", message: "Nothing to Delete", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             }
             
           }
@@ -71,24 +71,24 @@ class MasterViewController: UITableViewController {
 
     
     
-    func insertNewObject(meme: MemePicText) {
+    func insertNewObject(_ meme: MemePicText) {
         
-        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.insert(meme, atIndex: 0)
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        (UIApplication.shared.delegate as! AppDelegate).memes.insert(meme, at: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
         //println((UIApplication.sharedApplication().delegate as! AppDelegate).memes)
     }
     
     // MARK: - Segues
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "showDetail" {
             guard let indexPath = tableView.indexPathForSelectedRow else {return}
-                let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
-                (segue.destinationViewController as! DetailViewController).configureView(object)
-                (segue.destinationViewController as! DetailViewController).setIndexToDelete(indexPath.row)
+                let object = (UIApplication.shared.delegate as! AppDelegate).memes[(indexPath as NSIndexPath).row]
+                (segue.destination as! DetailViewController).configureView(object)
+                (segue.destination as! DetailViewController).setIndexToDelete((indexPath as NSIndexPath).row)
 
                 //println("indexRow Table \(indexPath.row)\(indexPath.row.getMirror())")
                 
@@ -98,19 +98,19 @@ class MasterViewController: UITableViewController {
     
     // MARK: - Table View
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes.count
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (UIApplication.shared.delegate as! AppDelegate).memes.count
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellCustom = tableView.dequeueReusableCellWithIdentifier("CellCustom", forIndexPath: indexPath) 
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellCustom = tableView.dequeueReusableCell(withIdentifier: "CellCustom", for: indexPath) 
         
-        let object = (UIApplication.sharedApplication().delegate as! AppDelegate).memes[indexPath.row]
+        let object = (UIApplication.shared.delegate as! AppDelegate).memes[(indexPath as NSIndexPath).row]
         
         let labelTop = cellCustom.viewWithTag(1) as! UILabel
         let labelBottom = cellCustom.viewWithTag(2) as! UILabel
@@ -124,21 +124,21 @@ class MasterViewController: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
     
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            (UIApplication.shared.delegate as! AppDelegate).memes.remove(at: (indexPath as NSIndexPath).row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }

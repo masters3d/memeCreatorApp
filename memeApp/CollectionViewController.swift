@@ -11,12 +11,12 @@ import UIKit
 
 class CollectionViewController: UICollectionViewController {
     
-    @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) { }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let width = CGRectGetWidth(collectionView!.frame) / 3
+        let width = collectionView!.frame.width / 3
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: width, height: width)
     }
@@ -34,40 +34,40 @@ class CollectionViewController: UICollectionViewController {
     // Do any additional setup after loading the view.
     
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         collectionView!.reloadData()
     }
     
     
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // Return the number of sections
         return 1
     }
     
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //Return the number of items in the section
         
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes.count
+        return (UIApplication.shared.delegate as! AppDelegate).memes.count
     }
     
     // MARK: - Segues
     
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             
-            guard let indexPathItems = collectionView?.indexPathsForSelectedItems(),
+            guard let indexPathItems = collectionView?.indexPathsForSelectedItems,
                   let indexPath = indexPathItems.first
                 else  { return }
                 
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                let object = appDelegate.memes[indexPath.item]
-                (segue.destinationViewController as! DetailViewController).configureView(object)
-                (segue.destinationViewController as! DetailViewController).setIndexToDelete(indexPath.item)
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let object = appDelegate.memes[(indexPath as NSIndexPath).item]
+                (segue.destination as! DetailViewController).configureView(object)
+                (segue.destination as! DetailViewController).setIndexToDelete((indexPath as NSIndexPath).item)
                 //println("indexPath Collection \(indexPath.item)\(indexPath.item.getMirror())")
 
                 
@@ -75,10 +75,10 @@ class CollectionViewController: UICollectionViewController {
             }}
     
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = (collectionView.dequeueReusableCellWithReuseIdentifier("memeCell", forIndexPath: indexPath) as! CollectionViewCell)
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let object  = appDelegate.memes[indexPath.row]
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = (collectionView.dequeueReusableCell(withReuseIdentifier: "memeCell", for: indexPath) as! CollectionViewCell)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let object  = appDelegate.memes[(indexPath as NSIndexPath).row]
         cell.memeImageView.image = object.editedImage
         return cell
     }

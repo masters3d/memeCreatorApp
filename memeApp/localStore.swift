@@ -13,7 +13,7 @@ import ImageIO
 struct MemePicText{
     var topLabel:String
     var bottomLabel:String
-    var date:NSDate
+    var date:Date
     var image:UIImage
     var imageURL:String
     var imageName:String
@@ -27,7 +27,7 @@ struct MemePicText{
         let nameAndUrl = saveImageToUserFolder(image)
         self.topLabel = topLabel
         self.bottomLabel = bottomLabel
-        self.date = NSDate()
+        self.date = Date()
         self.image = image 
         self.imageURL  = nameAndUrl.imageURL
         self.imageName  = nameAndUrl.name
@@ -36,17 +36,18 @@ struct MemePicText{
 }
 
 
-func saveImageToUserFolder(image:UIImage) -> (imageURL:String, name:String )  {
+func saveImageToUserFolder(_ image:UIImage) -> (imageURL:String, name:String )  {
     
-    let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
-    let currentDateTime = NSDate()
-    let formatter = NSDateFormatter()
+    let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] 
+    let currentDateTime = Date()
+    let formatter = DateFormatter()
     formatter.dateFormat = "ddMMyyyy-HHmmss"
     
     
-    let recordingName = formatter.stringFromDate(currentDateTime) + ".jpeg"
-    let pathArray = [dirPath, "memes", recordingName]
-    let filePath = NSURL.fileURLWithPathComponents(pathArray)
+    let recordingName = formatter.string(from: currentDateTime) + ".jpeg"
+    let pathArray:[String] = [dirPath, "memes", recordingName]
+    
+    let filePath =   NSURL.fileURL(withPathComponents : pathArray )
     let filePathString = filePath?.path ?? ""
     
     //TODO: - Implement file storage to presist between launches
