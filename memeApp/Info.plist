@@ -8,6 +8,8 @@
 	<string>the app will only acess the photos that you choose to create a MEME</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>the app will only acess the photos that you choose to create a MEME</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need to access the photo so we are able to burn in the text. We only save the images locally. You get to export you images to the place of your choosing.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
