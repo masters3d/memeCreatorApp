@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    var memes = Array(Repeat(count: 6, repeatedValue: MemePicText(topLabel: "TOP1", bottomLabel: "Bottom2", image: UIImage(named: "masters3dLogo")!, editedImage: nil)))
 
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
     }

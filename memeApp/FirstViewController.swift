@@ -82,11 +82,11 @@ UITextFieldDelegate{
         
         
         func setTextAttibutes(_ input:UITextField){
-            input.defaultTextAttributes = [
-                NSStrokeColorAttributeName : UIColor.black,
-                NSForegroundColorAttributeName : UIColor.white,
-                NSFontAttributeName : UIFont(name: "Impact", size: 38)!,
-                NSStrokeWidthAttributeName : -2 ]
+            input.defaultTextAttributes = convertToNSAttributedStringKeyDictionary([
+                NSAttributedString.Key.strokeColor.rawValue : UIColor.black,
+                NSAttributedString.Key.foregroundColor.rawValue : UIColor.white,
+                NSAttributedString.Key.font.rawValue : UIFont(name: "Impact", size: 38)!,
+                NSAttributedString.Key.strokeWidth.rawValue : -2 ])
             input.textAlignment  = .center
             input.delegate = self
             input.placeholder = nil
@@ -124,9 +124,12 @@ UITextFieldDelegate{
     
     //MARK: - Image Saving
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
-        let image = (info[UIImagePickerControllerOriginalImage] as! UIImage)
+        let image = (info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as! UIImage)
         
         shareLabel.isEnabled = true
         imageView.image = image
@@ -181,13 +184,13 @@ UITextFieldDelegate{
         cameraUI.delegate = self
         
         if !photoLibrary {
-            cameraUI.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            cameraUI.sourceType = UIImagePickerController.SourceType.photoLibrary
         } else {
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                cameraUI.sourceType = UIImagePickerControllerSourceType.camera
+                cameraUI.sourceType = UIImagePickerController.SourceType.camera
             } else {
-                cameraUI.sourceType = UIImagePickerControllerSourceType.photoLibrary
+                cameraUI.sourceType = UIImagePickerController.SourceType.photoLibrary
             }
         }
 //        cameraUI.mediaTypes = ["kUTTypeImage"] // This is the default
@@ -240,14 +243,14 @@ UITextFieldDelegate{
     // Subscribe to keyboard show/hide notification.
     // This is needed so that we know when to slide the view upwards.
     func subscribeTokeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(FirstViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(FirstViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FirstViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FirstViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     // Unsubscribe the notifications.
     func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     //Keyboard will show and hide
@@ -255,18 +258,17 @@ UITextFieldDelegate{
     func getKeyboardHeight(_ notification: Notification) -> CGFloat {
         let userInfo = (notification as NSNotification).userInfo
         let keyboardSize =
-        userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
     
-    func keyboardWillShow(_ notification: Notification) {
-        
+    @objc func keyboardWillShow(_ notification: Notification) {
         if bottomText.isFirstResponder {
             view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         if bottomText.isFirstResponder {
             view.frame.origin.y = 0.0
         }
@@ -283,7 +285,7 @@ UITextFieldDelegate{
         view.removeGestureRecognizer(tapRecognizer!)
     }
     
-    func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
+    @objc func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
     
@@ -300,4 +302,19 @@ UITextFieldDelegate{
     
     
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSAttributedStringKeyDictionary(_ input: [String: Any]) -> [NSAttributedString.Key: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }
