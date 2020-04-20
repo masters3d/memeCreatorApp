@@ -18,14 +18,14 @@ UITextFieldDelegate{
     var tapRecognizer: UITapGestureRecognizer? = nil
     
     @IBAction func cameraButton(_ sender: AnyObject) {
-        presentCamera()
+        presentPhotoPicker(.camera)
     }
     
     @IBOutlet var cameraLabel: UIBarButtonItem!
     
     
     @IBAction func albumButton(_ sender: AnyObject) {
-        presentCamera(true)
+        presentPhotoPicker(.photoLibrary)
     }
     
     @IBOutlet var navigationTitle: UINavigationItem!
@@ -180,18 +180,13 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     //MARK: - Camera and Album picker
     
-    func presentCamera(_ photoLibrary:Bool = false){
+    func presentPhotoPicker(_ pickerSourceType:UIImagePickerController.SourceType = .camera){
         cameraUI.delegate = self
         
-        if !photoLibrary {
-            cameraUI.sourceType = UIImagePickerController.SourceType.photoLibrary
+        if UIImagePickerController.isSourceTypeAvailable(pickerSourceType) {
+            cameraUI.sourceType = pickerSourceType
         } else {
-            
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                cameraUI.sourceType = UIImagePickerController.SourceType.camera
-            } else {
-                cameraUI.sourceType = UIImagePickerController.SourceType.photoLibrary
-            }
+            cameraUI.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
         }
 //        cameraUI.mediaTypes = ["kUTTypeImage"] // This is the default
         cameraUI.allowsEditing = true
